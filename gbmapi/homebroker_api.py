@@ -4,7 +4,7 @@ from enum import IntEnum, Enum
 from time import time
 
 from . import GBMAuth
-from .base import GBMBase
+from .base import GBMApiBase
 from .utils import format_date, format_date_end
 
 
@@ -34,7 +34,7 @@ class ProcessStatus(IntEnum):
 APP_ID = 16
 
 
-class GBMHomebrokerApi(GBMBase):
+class GBMHomebrokerApi(GBMApiBase):
     API_URL = "https://homebroker-api.gbm.com"
     ORIGIN = "https://homebroker.gbm.com"
 

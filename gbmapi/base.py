@@ -5,7 +5,7 @@ from .exceptions import ResponseError
 from .utils import STANDARD_HEADERS
 
 
-class GBMBase:
+class GBMApiBase:
     API_URL = None  # "https://api.gbm.com"
     ORIGIN = None  # "https://homebroker.gbm.com"
 

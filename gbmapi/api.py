@@ -1,7 +1,7 @@
 from enum import StrEnum
 from urllib.parse import quote
 
-from .base import GBMBase
+from .base import GBMApiBase
 
 GBM_APP = 'https://app.gbm.com'
 
@@ -16,7 +16,7 @@ class CommodityType(StrEnum):
     MATERIA_PRIMA = "f3851585-1456-4fcd-a6cb-23ef31dd351b"
 
 
-class GBMApi(GBMBase):
+class GBMApi(GBMApiBase):
     API_URL = "https://api.gbm.com"
     ORIGIN = "https://homebroker.gbm.com"
 

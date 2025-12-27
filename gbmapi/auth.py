@@ -52,7 +52,7 @@ class GBMAuth:
 
     def identity_token(self):
         cred = self.check_credentials()
-        return cred.get('idToken') or cred['identityToken']
+        return cred['identityToken']
 
     def _request(self, method, path, headers=None, json=None, check_success=True):
         resp = requests.request(
