@@ -11,7 +11,7 @@ class GBMApiBase:
     def __init__(self, auth):
         self.auth = auth
 
-    def _request(self, path, method=None, headers=None, json=None, check_success=False, authenticate=True):
+    def _request(self, path, method=None, headers=None, json=None, authenticate=True):
         resp = requests.request(
             method if method else ("GET" if json is None else "POST"),
             self.API_URL + path,
@@ -28,8 +28,4 @@ class GBMApiBase:
             raise ResponseError(resp)
 
         resp = resp.json()
-        if check_success:
-            assert resp['code'] == 0, resp
-            assert resp['id'] == "Success", resp
-            assert resp['message'] == "Exitoso", resp
         return resp

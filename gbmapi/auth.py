@@ -92,7 +92,6 @@ class GBMAuth(GBMApiBase):
                 "codeChallenge": code_challenge,
                 "codeChallengeMethod": "SHA256",
             },
-            check_success=False
         )['challengeInfo']
 
         # Create a TOTP object
@@ -114,9 +113,9 @@ class GBMAuth(GBMApiBase):
                 "responseType": "code",
                 "codeChallenge": code_challenge,
                 "codeChallengeMethod": "SHA256"
-            },
-            check_success=True
+            }
         )
+        assert resp['code'] == 0
 
         resp = self._request(
             path="/api/v1/session/token",
@@ -125,9 +124,10 @@ class GBMAuth(GBMApiBase):
                 "clientId": self.client_id,
                 "codeVerifier": code_verifier,
                 "code": resp['authorizationCode']
-            },
-            check_success=True
+            }
         )
+        assert resp['code'] == 0
+
         return resp
 
     def refresh(self):
