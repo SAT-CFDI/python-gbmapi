@@ -12,7 +12,7 @@ CLIENT_ID = "7c464570619a417080b300076e163289"
 
 class GBMAuth(GBMApiBase):
     API_URL = "https://auth.gbm.com"
-    ORIGIN = 'https://app.gbm.com'
+    ORIGIN = 'https://www.appgbm.com'
 
     def __init__(self, user, password, secret, device, latitude, longitude, device_mac_address,
                  client_id=CLIENT_ID):
@@ -49,6 +49,14 @@ class GBMAuth(GBMApiBase):
                 self.credentials = cred
 
         return cred
+
+    def unload_credentials(self):
+        cred = self.credentials
+        if cred is None:
+            pass
+        else:
+            self.logout(cred)
+            # self.credentials = None
 
     def access_token(self):
         cred = self.load_credentials()
@@ -145,13 +153,19 @@ class GBMAuth(GBMApiBase):
         return resp
 
     # After Authenticated
-    def logout(self):
+    def logout(self, cred):
         # Clear Session Token
         self._request(
-            path=f"/api/v1/session/user?client_id={self.client_id}",
-            method="DELETE"
+            path=f"/api/v1/session/user/global",
+            method="DELETE",
+            json={
+                "token": cred['accessToken']
+            },
+            headers={
+                "authorization": cred['tokenType'] + ' ' + cred['accessToken']
+            },
+            authenticate=False
         )
-        self.credentials = None
 
     def security_settings(self):
         """Returns the security settings of the user"""
