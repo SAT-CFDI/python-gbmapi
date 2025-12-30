@@ -52,11 +52,9 @@ class GBMAuth(GBMApiBase):
 
     def unload_credentials(self):
         cred = self.credentials
-        if cred is None:
-            pass
-        else:
+        if cred:
             self.logout(cred)
-            # self.credentials = None
+            self.credentials = None
 
     def access_token(self):
         cred = self.load_credentials()
